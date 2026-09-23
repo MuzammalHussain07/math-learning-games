@@ -1,92 +1,37 @@
 /* =========================================================
-   MATHPLAY - COMPLETE WORKING GAME ENGINE
-   5 Games for Young Math Learners
+   MATHPLAY - WORKING GAME ENGINE
 ========================================================= */
 
-let currentGame = "";
-let score = 0;
-let lives = 3;
-let questionIndex = 0;
-let timer = 30;
-let timerInterval = null;
-let currentCorrectAnswer = null;
-let questions = [];
-
-
-/* =========================================================
-   BASIC PAGE FUNCTIONS
-========================================================= */
-
-function scrollToGames() {
-    const games = document.getElementById("games");
-
-    if (games) {
-        games.scrollIntoView({
-            behavior: "smooth"
-        });
-    }
-}
-
-
-function showHome() {
-    exitGame();
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-}
-
-
-function showHowItWorks() {
-    const modal = document.getElementById("howModal");
-
-    if (modal) {
-        modal.classList.remove("hidden");
-    }
-}
-
-
-function closeHow() {
-    const modal = document.getElementById("howModal");
-
-    if (modal) {
-        modal.classList.add("hidden");
-    }
-}
+window.MathPlay = {
+    game: "",
+    score: 0,
+    lives: 3,
+    question: 0,
+    timer: 30,
+    timerInterval: null,
+    correctAnswer: null,
+    questions: []
+};
 
 
 /* =========================================================
    START GAME
 ========================================================= */
 
-function startGame(game) {
+window.startGame = function(gameName) {
 
-    currentGame = game;
+    window.MathPlay.game = gameName;
+    window.MathPlay.score = 0;
+    window.MathPlay.lives = 3;
+    window.MathPlay.question = 0;
+    window.MathPlay.timer = 30;
 
-    score = 0;
-    lives = 3;
-    questionIndex = 0;
-    timer = 30;
+    clearInterval(window.MathPlay.timerInterval);
 
-    clearInterval(timerInterval);
+    window.MathPlay.questions =
+        createQuestions(gameName);
 
-    questions = createQuestions(game);
-
-    /* Hide website sections */
-
-    const hero = document.querySelector(".hero");
-    const games = document.getElementById("games");
-    const skills = document.getElementById("skills");
-    const about = document.getElementById("about");
-
-    if (hero) hero.classList.add("hidden");
-    if (games) games.classList.add("hidden");
-    if (skills) skills.classList.add("hidden");
-    if (about) about.classList.add("hidden");
-
-
-    /* Show game */
+    hideWebsite();
 
     const gameScreen =
         document.getElementById("gameScreen");
@@ -102,18 +47,86 @@ function startGame(game) {
         resultScreen.classList.add("hidden");
     }
 
-
     updateGameTitle();
-    updateStats();
     showQuestion();
+    startTimer();
 
     window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
+};
 
-    startTimer();
+
+/* =========================================================
+   HIDE NORMAL WEBSITE
+========================================================= */
+
+function hideWebsite() {
+
+    const hero =
+        document.querySelector(".hero");
+
+    const games =
+        document.getElementById("games");
+
+    const skills =
+        document.getElementById("skills");
+
+    const about =
+        document.getElementById("about");
+
+    if (hero) hero.classList.add("hidden");
+    if (games) games.classList.add("hidden");
+    if (skills) skills.classList.add("hidden");
+    if (about) about.classList.add("hidden");
 }
+
+
+/* =========================================================
+   SHOW NORMAL WEBSITE
+========================================================= */
+
+window.exitGame = function() {
+
+    clearInterval(window.MathPlay.timerInterval);
+
+    const gameScreen =
+        document.getElementById("gameScreen");
+
+    const resultScreen =
+        document.getElementById("resultScreen");
+
+    if (gameScreen) {
+        gameScreen.classList.add("hidden");
+    }
+
+    if (resultScreen) {
+        resultScreen.classList.add("hidden");
+    }
+
+    const hero =
+        document.querySelector(".hero");
+
+    const games =
+        document.getElementById("games");
+
+    const skills =
+        document.getElementById("skills");
+
+    const about =
+        document.getElementById("about");
+
+    if (hero) hero.classList.remove("hidden");
+    if (games) games.classList.remove("hidden");
+    if (skills) skills.classList.remove("hidden");
+    if (about) about.classList.remove("hidden");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+};
 
 
 /* =========================================================
@@ -123,19 +136,28 @@ function startGame(game) {
 function updateGameTitle() {
 
     const titles = {
+
         blaster: "🚀 Math Blaster",
+
         ninja: "🥷 Number Ninja",
+
         tables: "✖️ Times Table Challenge",
+
         memory: "🧠 Math Memory",
+
         shapes: "🔷 Shape & Number Quest"
+
     };
 
     const title =
         document.getElementById("gameTitle");
 
     if (title) {
+
         title.textContent =
-            titles[currentGame] || "Math Game";
+            titles[window.MathPlay.game] ||
+            "Math Game";
+
     }
 }
 
@@ -149,15 +171,15 @@ function createQuestions(game) {
     let list = [];
 
 
-    /* -----------------------------------------------------
-       GAME 1 - MATH BLASTER
-    ----------------------------------------------------- */
+    /* =====================================================
+       MATH BLASTER
+    ===================================================== */
 
     if (game === "blaster") {
 
         for (let i = 0; i < 10; i++) {
 
-            const operationNumber =
+            const type =
                 randomNumber(1, 3);
 
             let a;
@@ -166,7 +188,7 @@ function createQuestions(game) {
             let symbol;
 
 
-            if (operationNumber === 1) {
+            if (type === 1) {
 
                 a = randomNumber(1, 30);
                 b = randomNumber(1, 30);
@@ -176,7 +198,8 @@ function createQuestions(game) {
 
             }
 
-            else if (operationNumber === 2) {
+
+            else if (type === 2) {
 
                 a = randomNumber(10, 40);
                 b = randomNumber(1, a);
@@ -185,6 +208,7 @@ function createQuestions(game) {
                 symbol = "−";
 
             }
+
 
             else {
 
@@ -198,58 +222,82 @@ function createQuestions(game) {
 
 
             list.push({
-                question: `${a} ${symbol} ${b} = ?`,
+
+                question:
+                    `${a} ${symbol} ${b} = ?`,
+
                 answer: answer
+
             });
 
         }
+
     }
 
 
-    /* -----------------------------------------------------
-       GAME 2 - NUMBER NINJA
-    ----------------------------------------------------- */
+    /* =====================================================
+       NUMBER NINJA
+    ===================================================== */
 
     if (game === "ninja") {
 
         for (let i = 0; i < 10; i++) {
 
-            const correct =
+            const a =
                 randomNumber(1, 100);
 
+            const b =
+                randomNumber(1, 100);
+
+            const answer =
+                Math.max(a, b);
+
             list.push({
+
                 question:
-                    `Which number is ${correct}?`,
-                answer: correct
+                    `Which number is greater: ${a} or ${b}?`,
+
+                answer: answer
+
             });
 
         }
+
     }
 
 
-    /* -----------------------------------------------------
-       GAME 3 - TIMES TABLE CHALLENGE
-    ----------------------------------------------------- */
+    /* =====================================================
+       TIMES TABLES
+    ===================================================== */
 
     if (game === "tables") {
 
         for (let i = 0; i < 10; i++) {
 
-            const a = randomNumber(2, 12);
-            const b = randomNumber(2, 12);
+            const a =
+                randomNumber(2, 12);
+
+            const b =
+                randomNumber(2, 12);
 
             list.push({
-                question: `${a} × ${b} = ?`,
-                answer: a * b
+
+                question:
+                    `${a} × ${b} = ?`,
+
+                answer:
+                    a * b
+
             });
 
         }
+
     }
 
 
-    /* -----------------------------------------------------
-       GAME 4 - MATH MEMORY
-    ----------------------------------------------------- */
+    /* =====================================================
+       MATH MEMORY
+    ===================================================== */
 
     if (game === "memory") {
 
@@ -306,12 +354,13 @@ function createQuestions(game) {
             }
 
         ];
+
     }
 
 
-    /* -----------------------------------------------------
-       GAME 5 - SHAPE & NUMBER QUEST
-    ----------------------------------------------------- */
+    /* =====================================================
+       SHAPE QUEST
+    ===================================================== */
 
     if (game === "shapes") {
 
@@ -320,64 +369,75 @@ function createQuestions(game) {
             {
                 question:
                     "How many sides does a triangle have?",
+
                 answer: 3
             },
 
             {
                 question:
                     "How many sides does a square have?",
+
                 answer: 4
             },
 
             {
                 question:
                     "How many sides does a pentagon have?",
+
                 answer: 5
             },
 
             {
                 question:
                     "How many sides does a hexagon have?",
+
                 answer: 6
             },
 
             {
                 question:
                     "How many sides does a rectangle have?",
+
                 answer: 4
             },
 
             {
                 question:
                     "How many corners does a triangle have?",
+
                 answer: 3
             },
 
             {
                 question:
                     "How many sides does an octagon have?",
+
                 answer: 8
             },
 
             {
                 question:
                     "How many sides does a circle have?",
+
                 answer: 0
             },
 
             {
                 question:
                     "How many sides does a quadrilateral have?",
+
                 answer: 4
             },
 
             {
                 question:
                     "How many sides does a heptagon have?",
+
                 answer: 7
             }
 
         ];
+
     }
 
 
@@ -391,9 +451,14 @@ function createQuestions(game) {
 
 function showQuestion() {
 
-    /* If all questions are finished */
+    const state =
+        window.MathPlay;
 
-    if (questionIndex >= questions.length) {
+
+    if (
+        state.question >=
+        state.questions.length
+    ) {
 
         finishGame();
 
@@ -402,44 +467,49 @@ function showQuestion() {
 
 
     const current =
-        questions[questionIndex];
+        state.questions[state.question];
 
-    currentCorrectAnswer =
+
+    state.correctAnswer =
         current.answer;
 
 
-    /* Question number */
-
     const questionNumber =
-        document.getElementById("questionNumber");
+        document.getElementById(
+            "questionNumber"
+        );
 
     if (questionNumber) {
 
         questionNumber.textContent =
-            `Question ${questionIndex + 1} of ${questions.length}`;
+            `Question ${state.question + 1} of ${state.questions.length}`;
 
     }
 
 
-    /* Progress */
-
     const progressBar =
-        document.getElementById("progressBar");
+        document.getElementById(
+            "progressBar"
+        );
 
     if (progressBar) {
 
         const progress =
-            (questionIndex / questions.length) * 100;
+            (state.question /
+                state.questions.length) *
+            100;
 
         progressBar.style.width =
             `${progress}%`;
+
     }
 
 
-    /* Question area */
-
     const questionArea =
-        document.getElementById("questionArea");
+        document.getElementById(
+            "questionArea"
+        );
+
 
     if (!questionArea) {
         return;
@@ -452,34 +522,46 @@ function showQuestion() {
             ${current.question}
         </div>
 
-        <div class="answers" id="answers"></div>
+        <div
+            class="answers"
+            id="answers">
+        </div>
 
     `;
 
 
     const answers =
-        document.getElementById("answers");
+        document.getElementById(
+            "answers"
+        );
+
 
     if (!answers) {
         return;
     }
 
 
-    /* Create answer choices */
-
     const choices =
-        generateChoices(current.answer);
+        generateChoices(
+            current.answer
+        );
 
 
     choices.forEach(function(answer) {
 
         const button =
-            document.createElement("button");
+            document.createElement(
+                "button"
+            );
 
-        button.type = "button";
+
+        button.type =
+            "button";
+
 
         button.className =
             "answer-btn";
+
 
         button.textContent =
             answer;
@@ -508,13 +590,14 @@ function showQuestion() {
 
 
 /* =========================================================
-   CREATE FOUR ANSWERS
+   ANSWER OPTIONS
 ========================================================= */
 
 function generateChoices(correct) {
 
     const choices =
         new Set();
+
 
     choices.add(correct);
 
@@ -528,7 +611,7 @@ function generateChoices(correct) {
 
             variation =
                 correct +
-                randomNumber(-4, 5);
+                randomNumber(-4, 4);
 
         }
 
@@ -560,15 +643,20 @@ function generateChoices(correct) {
    CHECK ANSWER
 ========================================================= */
 
-function checkAnswer(answer, clickedButton) {
+function checkAnswer(
+    answer,
+    clickedButton
+) {
+
+    const state =
+        window.MathPlay;
+
 
     const buttons =
         document.querySelectorAll(
             ".answer-btn"
         );
 
-
-    /* Prevent multiple clicks */
 
     buttons.forEach(function(button) {
 
@@ -577,18 +665,18 @@ function checkAnswer(answer, clickedButton) {
     });
 
 
-    const isCorrect =
+    const correct =
         Number(answer) ===
-        Number(currentCorrectAnswer);
+        Number(state.correctAnswer);
 
 
-    if (isCorrect) {
+    if (correct) {
 
         clickedButton.classList.add(
             "correct"
         );
 
-        score += 10;
+        state.score += 10;
 
         playSound(true);
 
@@ -600,18 +688,16 @@ function checkAnswer(answer, clickedButton) {
             "wrong"
         );
 
-        lives--;
+        state.lives--;
 
         playSound(false);
 
-
-        /* Show correct answer */
 
         buttons.forEach(function(button) {
 
             if (
                 Number(button.textContent) ===
-                Number(currentCorrectAnswer)
+                Number(state.correctAnswer)
             ) {
 
                 button.classList.add(
@@ -622,33 +708,42 @@ function checkAnswer(answer, clickedButton) {
 
         });
 
-
-        if (lives <= 0) {
-
-            updateStats();
-
-            setTimeout(
-                finishGame,
-                900
-            );
-
-            return;
-        }
-
     }
 
 
     updateStats();
 
 
-    /* Move to next question */
+    if (state.lives <= 0) {
 
-    questionIndex++;
+        setTimeout(
+            finishGame,
+            800
+        );
+
+        return;
+    }
+
+
+    state.question++;
+
+
+    clearInterval(
+        state.timerInterval
+    );
 
 
     setTimeout(
-        showQuestion,
-        750
+        function() {
+
+            state.timer = 30;
+
+            showQuestion();
+
+            startTimer();
+
+        },
+        700
     );
 }
 
@@ -659,34 +754,44 @@ function checkAnswer(answer, clickedButton) {
 
 function startTimer() {
 
-    clearInterval(timerInterval);
+    const state =
+        window.MathPlay;
 
-    timer = 30;
+
+    clearInterval(
+        state.timerInterval
+    );
+
+
+    state.timer = 30;
 
     updateTimer();
 
 
-    timerInterval =
+    state.timerInterval =
         setInterval(function() {
 
-            timer--;
+            state.timer--;
 
             updateTimer();
 
 
-            if (timer <= 0) {
+            if (state.timer <= 0) {
 
                 clearInterval(
-                    timerInterval
+                    state.timerInterval
                 );
 
 
-                lives--;
+                state.lives--;
+
+                state.question++;
+
 
                 updateStats();
 
 
-                if (lives <= 0) {
+                if (state.lives <= 0) {
 
                     finishGame();
 
@@ -694,11 +799,7 @@ function startTimer() {
                 }
 
 
-                /* Move to next question */
-
-                questionIndex++;
-
-                timer = 30;
+                state.timer = 30;
 
                 showQuestion();
 
@@ -710,15 +811,23 @@ function startTimer() {
 }
 
 
+/* =========================================================
+   UPDATE TIMER
+========================================================= */
+
 function updateTimer() {
 
-    const timerElement =
-        document.getElementById("timer");
+    const timer =
+        document.getElementById(
+            "timer"
+        );
 
-    if (timerElement) {
 
-        timerElement.textContent =
-            timer;
+    if (timer) {
+
+        timer.textContent =
+            window.MathPlay.timer;
+
     }
 }
 
@@ -729,24 +838,35 @@ function updateTimer() {
 
 function updateStats() {
 
-    const scoreElement =
-        document.getElementById("score");
-
-    const livesElement =
-        document.getElementById("lives");
+    const state =
+        window.MathPlay;
 
 
-    if (scoreElement) {
+    const score =
+        document.getElementById(
+            "score"
+        );
 
-        scoreElement.textContent =
-            score;
+
+    const lives =
+        document.getElementById(
+            "lives"
+        );
+
+
+    if (score) {
+
+        score.textContent =
+            state.score;
+
     }
 
 
-    if (livesElement) {
+    if (lives) {
 
-        livesElement.textContent =
-            lives;
+        lives.textContent =
+            state.lives;
+
     }
 
 
@@ -760,14 +880,25 @@ function updateStats() {
 
 function finishGame() {
 
-    clearInterval(timerInterval);
+    const state =
+        window.MathPlay;
+
+
+    clearInterval(
+        state.timerInterval
+    );
 
 
     const gameScreen =
-        document.getElementById("gameScreen");
+        document.getElementById(
+            "gameScreen"
+        );
+
 
     const resultScreen =
-        document.getElementById("resultScreen");
+        document.getElementById(
+            "resultScreen"
+        );
 
 
     if (gameScreen) {
@@ -789,13 +920,15 @@ function finishGame() {
 
 
     const finalScore =
-        document.getElementById("finalScore");
+        document.getElementById(
+            "finalScore"
+        );
 
 
     if (finalScore) {
 
         finalScore.textContent =
-            score;
+            state.score;
 
     }
 
@@ -808,21 +941,21 @@ function finishGame() {
 
     if (resultMessage) {
 
-        if (score >= 90) {
+        if (state.score >= 90) {
 
             resultMessage.textContent =
                 "🌟 Amazing! Your math skills are getting stronger!";
 
         }
 
-        else if (score >= 70) {
+        else if (state.score >= 70) {
 
             resultMessage.textContent =
                 "🎉 Great work! Keep practicing!";
 
         }
 
-        else if (score >= 40) {
+        else if (state.score >= 40) {
 
             resultMessage.textContent =
                 "👍 Good effort! Try again and beat your score!";
@@ -844,92 +977,69 @@ function finishGame() {
 
 
 /* =========================================================
-   RESTART GAME
+   RESTART
 ========================================================= */
 
-function restartGame() {
+window.restartGame = function() {
 
-    const resultScreen =
-        document.getElementById("resultScreen");
-
-    if (resultScreen) {
-
-        resultScreen.classList.add(
-            "hidden"
-        );
-
-    }
-
-
-    startGame(currentGame);
-}
+    startGame(
+        window.MathPlay.game
+    );
+};
 
 
 /* =========================================================
-   EXIT GAME
+   HOME
 ========================================================= */
 
-function exitGame() {
+window.showHome = function() {
 
-    clearInterval(timerInterval);
+    window.exitGame();
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+};
 
 
-    const gameScreen =
-        document.getElementById("gameScreen");
+/* =========================================================
+   HOW IT WORKS
+========================================================= */
 
-    const resultScreen =
-        document.getElementById("resultScreen");
+window.showHowItWorks = function() {
 
+    const modal =
+        document.getElementById(
+            "howModal"
+        );
 
-    if (gameScreen) {
+    if (modal) {
 
-        gameScreen.classList.add(
+        modal.classList.remove(
             "hidden"
         );
 
     }
+};
 
 
-    if (resultScreen) {
+window.closeHow = function() {
 
-        resultScreen.classList.add(
+    const modal =
+        document.getElementById(
+            "howModal"
+        );
+
+    if (modal) {
+
+        modal.classList.add(
             "hidden"
         );
 
     }
-
-
-    /* Bring normal website back */
-
-    const hero =
-        document.querySelector(".hero");
-
-    const games =
-        document.getElementById("games");
-
-    const skills =
-        document.getElementById("skills");
-
-    const about =
-        document.getElementById("about");
-
-
-    if (hero) {
-        hero.classList.remove("hidden");
-    }
-
-    if (games) {
-        games.classList.remove("hidden");
-    }
-
-    if (skills) {
-        skills.classList.remove("hidden");
-    }
-
-    if (about) {
-        about.classList.remove("hidden");
-    }
-}
+};
 
 
 /* =========================================================
@@ -941,7 +1051,10 @@ function saveHighScore() {
     try {
 
         const key =
-            `mathplay_${currentGame}_highscore`;
+            "mathplay_" +
+            window.MathPlay.game +
+            "_highscore";
+
 
         const oldScore =
             Number(
@@ -949,11 +1062,14 @@ function saveHighScore() {
             );
 
 
-        if (score > oldScore) {
+        if (
+            window.MathPlay.score >
+            oldScore
+        ) {
 
             localStorage.setItem(
                 key,
-                score
+                window.MathPlay.score
             );
 
         }
@@ -962,15 +1078,16 @@ function saveHighScore() {
 
     catch (error) {
 
-        /* Local storage may be unavailable.
-           The game still works. */
+        console.log(
+            "High score storage unavailable."
+        );
 
     }
 }
 
 
 /* =========================================================
-   SOUND EFFECT
+   SOUND
 ========================================================= */
 
 function playSound(correct) {
@@ -1033,7 +1150,9 @@ function playSound(correct) {
 
     catch (error) {
 
-        /* Sound is optional. */
+        console.log(
+            "Sound unavailable."
+        );
 
     }
 }
@@ -1092,9 +1211,9 @@ function shuffle(array) {
 
 
 /* =========================================================
-   SAFETY CHECK
+   CONFIRM JAVASCRIPT LOADED
 ========================================================= */
 
 console.log(
-    "🧮 MathPlay game engine loaded successfully!"
+    "✅ MathPlay JavaScript loaded successfully!"
 );
