@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://YOUR-USERNAME.github.io/math-learning-games/sitemap.xml
+Sitemap: https://MuzammalHussain07.github.io/math-learning-games/sitemap.xml
