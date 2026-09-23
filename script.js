@@ -1,4 +1,3 @@
-javascript
 /* =========================================================
    MATHPLAY - COMPLETE WORKING GAME ENGINE
    5 Games for Young Math Learners
