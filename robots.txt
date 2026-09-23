@@ -1,0 +1,5 @@
+```text
+User-agent: *
+Allow: /
+
+Sitemap: https://YOUR-USERNAME.github.io/math-learning-games/sitemap.xml
