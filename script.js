@@ -1,4 +1,4 @@
-```javascript
+javascript
 let currentGame = "";
 let score = 0;
 let lives = 3;
@@ -823,4 +823,3 @@ function shuffle(array) {
   return array;
 
 }
-```
