@@ -1,0 +1,608 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Free Math Learning Games for Kids | Fun Math Games Online</title>
+
+  <meta name="description"
+    content="Play free math learning games for kids. Practice addition, subtraction, multiplication, numbers, memory and shapes with fun educational math games.">
+
+  <meta name="keywords"
+    content="math games for kids, free math games, math learning games, educational math games, multiplication games, addition games, subtraction games, math practice for kids, online math games">
+
+  <meta name="author" content="Math Learning Games">
+
+  <meta name="robots" content="index, follow, max-image-preview:large">
+
+  <link rel="canonical" href="https://YOUR-USERNAME.github.io/math-learning-games/">
+
+  <meta property="og:title" content="Free Math Learning Games for Kids">
+  <meta property="og:description" content="Learn mathematics by playing fun and educational games.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://YOUR-USERNAME.github.io/math-learning-games/">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Free Math Learning Games for Kids">
+  <meta name="twitter:description" content="Fun math games that help children practice important math skills.">
+
+  <meta name="theme-color" content="#6c5ce7">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "Math Learning Games",
+    "description": "Free educational math games for young learners.",
+    "url": "https://YOUR-USERNAME.github.io/math-learning-games/",
+    "educationalLevel": "Elementary School",
+    "educationalUse": "Practice",
+    "learningResourceType": "Educational Game"
+  }
+  </script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+
+  <div class="container nav">
+
+    <a href="#" class="logo" onclick="showHome()">
+      🧮 Math<span>Play</span>
+    </a>
+
+    <nav>
+      <a href="#games">Games</a>
+      <a href="#skills">Skills</a>
+      <a href="#about">About</a>
+    </nav>
+
+  </div>
+
+</header>
+
+
+<main>
+
+<!-- HERO -->
+
+<section class="hero">
+
+  <div class="container hero-content">
+
+    <div class="hero-text">
+
+      <div class="badge">
+        🎮 Learn • Play • Improve
+      </div>
+
+      <h1>
+        Fun Math Games for Young Learners
+      </h1>
+
+      <p>
+        Practice addition, subtraction, multiplication, numbers,
+        memory and shapes through fun educational games.
+      </p>
+
+      <div class="hero-buttons">
+
+        <button class="primary-btn" onclick="scrollToGames()">
+          🚀 Start Playing
+        </button>
+
+        <button class="secondary-btn" onclick="showHowItWorks()">
+          📚 How It Works
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="hero-card">
+
+      <div class="floating-number n1">7</div>
+      <div class="floating-number n2">+</div>
+      <div class="floating-number n3">9</div>
+
+      <div class="calculator">
+
+        <div class="screen">
+          8 × 4 = ?
+        </div>
+
+        <div class="calc-buttons">
+          <span>24</span>
+          <span class="correct">32 ✓</span>
+          <span>36</span>
+          <span>42</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- GAME AREA -->
+
+<section id="games" class="games-section">
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <span>🎯 LEARNING GAMES</span>
+
+      <h2>Choose a Math Game</h2>
+
+      <p>
+        Pick a game and start practicing your math skills.
+      </p>
+
+    </div>
+
+
+    <div class="game-grid">
+
+
+      <!-- GAME 1 -->
+
+      <article class="game-card">
+
+        <div class="game-icon purple">
+          🚀
+        </div>
+
+        <h3>Math Blaster</h3>
+
+        <p>
+          Solve addition, subtraction and multiplication
+          questions before time runs out.
+        </p>
+
+        <div class="skill">
+          <span>Arithmetic</span>
+          <span>⏱️ Fast</span>
+        </div>
+
+        <button onclick="startGame('blaster')">
+          Play Now →
+        </button>
+
+      </article>
+
+
+      <!-- GAME 2 -->
+
+      <article class="game-card">
+
+        <div class="game-icon orange">
+          🥷
+        </div>
+
+        <h3>Number Ninja</h3>
+
+        <p>
+          Test your number skills by choosing the correct
+          answer from different options.
+        </p>
+
+        <div class="skill">
+          <span>Numbers</span>
+          <span>🧠 Logic</span>
+        </div>
+
+        <button onclick="startGame('ninja')">
+          Play Now →
+        </button>
+
+      </article>
+
+
+      <!-- GAME 3 -->
+
+      <article class="game-card">
+
+        <div class="game-icon blue">
+          ✖️
+        </div>
+
+        <h3>Times Table Challenge</h3>
+
+        <p>
+          Practice multiplication tables and improve
+          calculation speed.
+        </p>
+
+        <div class="skill">
+          <span>Multiplication</span>
+          <span>⚡ Speed</span>
+        </div>
+
+        <button onclick="startGame('tables')">
+          Play Now →
+        </button>
+
+      </article>
+
+
+      <!-- GAME 4 -->
+
+      <article class="game-card">
+
+        <div class="game-icon pink">
+          🧠
+        </div>
+
+        <h3>Math Memory</h3>
+
+        <p>
+          Match math questions with their correct answers
+          to train memory and calculation skills.
+        </p>
+
+        <div class="skill">
+          <span>Memory</span>
+          <span>🎯 Focus</span>
+        </div>
+
+        <button onclick="startGame('memory')">
+          Play Now →
+        </button>
+
+      </article>
+
+
+      <!-- GAME 5 -->
+
+      <article class="game-card">
+
+        <div class="game-icon green">
+          🔷
+        </div>
+
+        <h3>Shape & Number Quest</h3>
+
+        <p>
+          Learn shapes, sides and basic number concepts
+          through quick questions.
+        </p>
+
+        <div class="skill">
+          <span>Geometry</span>
+          <span>🔷 Shapes</span>
+        </div>
+
+        <button onclick="startGame('shapes')">
+          Play Now →
+        </button>
+
+      </article>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- GAME SCREEN -->
+
+<section id="gameScreen" class="game-screen hidden">
+
+  <div class="container">
+
+    <button class="back-btn" onclick="exitGame()">
+      ← Back to Games
+    </button>
+
+    <div class="playing-card">
+
+      <div class="playing-top">
+
+        <div>
+          <span id="gameTitle">Math Game</span>
+          <small id="questionNumber">Question 1</small>
+        </div>
+
+        <div class="stats">
+
+          <div>
+            ❤️ <span id="lives">3</span>
+          </div>
+
+          <div>
+            ⭐ <span id="score">0</span>
+          </div>
+
+          <div>
+            ⏱️ <span id="timer">30</span>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="progress">
+        <div id="progressBar"></div>
+      </div>
+
+
+      <div id="questionArea">
+
+        <div class="question">
+          Ready?
+        </div>
+
+        <div class="answers">
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- RESULT -->
+
+<section id="resultScreen" class="result-screen hidden">
+
+  <div class="result-card">
+
+    <div class="trophy">
+      🏆
+    </div>
+
+    <h2>Great Job!</h2>
+
+    <p id="resultMessage">
+      You completed the game.
+    </p>
+
+    <div class="final-score">
+
+      <span>Your Score</span>
+
+      <strong id="finalScore">
+        0
+      </strong>
+
+    </div>
+
+    <div class="result-buttons">
+
+      <button class="primary-btn" onclick="restartGame()">
+        🔄 Play Again
+      </button>
+
+      <button class="secondary-btn" onclick="exitGame()">
+        🎮 More Games
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SKILLS -->
+
+<section id="skills" class="skills-section">
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <span>📚 WHAT CHILDREN PRACTICE</span>
+
+      <h2>Build Important Math Skills</h2>
+
+    </div>
+
+
+    <div class="skills-grid">
+
+      <div>
+        <span>➕</span>
+        <h3>Addition</h3>
+        <p>Practice adding numbers quickly.</p>
+      </div>
+
+      <div>
+        <span>➖</span>
+        <h3>Subtraction</h3>
+        <p>Improve subtraction and mental math.</p>
+      </div>
+
+      <div>
+        <span>✖️</span>
+        <h3>Multiplication</h3>
+        <p>Practice multiplication tables.</p>
+      </div>
+
+      <div>
+        <span>🔢</span>
+        <h3>Number Skills</h3>
+        <p>Develop number recognition and logic.</p>
+      </div>
+
+      <div>
+        <span>🧠</span>
+        <h3>Memory</h3>
+        <p>Strengthen concentration and recall.</p>
+      </div>
+
+      <div>
+        <span>🔷</span>
+        <h3>Geometry</h3>
+        <p>Learn basic shapes and their properties.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SEO CONTENT -->
+
+<section id="about" class="about-section">
+
+  <div class="container">
+
+    <h2>Free Math Learning Games for Kids</h2>
+
+    <p>
+      MathPlay is a free online math learning portal designed to
+      make mathematics practice more enjoyable for young learners.
+      Instead of only reading questions from a worksheet, children
+      can practice math skills through interactive games.
+    </p>
+
+    <h3>Why Use Math Games for Learning?</h3>
+
+    <p>
+      Educational games can give children an opportunity to practice
+      basic mathematical concepts repeatedly. Addition, subtraction,
+      multiplication, numbers, memory and shapes can become easier
+      to practice when lessons are combined with interactive
+      activities.
+    </p>
+
+    <h3>Math Practice for Young Learners</h3>
+
+    <p>
+      Children can use the games to practice basic arithmetic and
+      improve calculation speed. The games are designed to be simple
+      enough for beginners while providing repeated practice.
+    </p>
+
+    <h3>Practice Addition and Subtraction</h3>
+
+    <p>
+      Addition and subtraction are important foundational math skills.
+      Regular practice can help learners become more comfortable
+      working with numbers.
+    </p>
+
+    <h3>Practice Multiplication Tables</h3>
+
+    <p>
+      Multiplication tables are an important part of elementary
+      mathematics. The Times Table Challenge provides quick questions
+      that help children practice multiplication facts.
+    </p>
+
+    <h3>Learn Shapes and Geometry</h3>
+
+    <p>
+      Basic geometry begins with understanding common shapes and
+      their properties. Shape & Number Quest introduces learners
+      to simple geometry questions in a game format.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- HOW IT WORKS MODAL -->
+
+<div id="howModal" class="modal hidden">
+
+  <div class="modal-content">
+
+    <button class="close-modal" onclick="closeHow()">
+      ×
+    </button>
+
+    <h2>📚 How MathPlay Works</h2>
+
+    <div class="steps">
+
+      <div>
+        <strong>1</strong>
+        <p>Choose a math game.</p>
+      </div>
+
+      <div>
+        <strong>2</strong>
+        <p>Answer the questions.</p>
+      </div>
+
+      <div>
+        <strong>3</strong>
+        <p>Earn points for correct answers.</p>
+      </div>
+
+      <div>
+        <strong>4</strong>
+        <p>Try again and improve your score.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+</main>
+
+
+<footer>
+
+  <div class="container footer-content">
+
+    <div>
+
+      <div class="logo">
+        🧮 Math<span>Play</span>
+      </div>
+
+      <p>
+        Fun math practice for young learners.
+      </p>
+
+    </div>
+
+    <div>
+      <strong>Learning</strong>
+      <a href="#games">Math Games</a>
+      <a href="#skills">Math Skills</a>
+      <a href="#about">About</a>
+    </div>
+
+  </div>
+
+  <div class="copyright">
+    © 2026 MathPlay. Free educational math games.
+  </div>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
+```
